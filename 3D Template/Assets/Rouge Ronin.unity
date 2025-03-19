@@ -319,8 +319,8 @@ MonoBehaviour:
   gravity: 10
   lookSpeed: 4
   lookXLimit: 90
-  defaultHeight: 3.5
-  crouchHeight: 2
+  defaultHeight: 6
+  crouchHeight: 3
   crouchSpeed: 3
   slide_Time: 0
   canslide: 0
@@ -411,7 +411,7 @@ Transform:
   m_GameObject: {fileID: 192934125}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: 0}
+  m_LocalPosition: {x: 0, y: 2.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -656,6 +656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 851694560}
+  - component: {fileID: 851694561}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -678,6 +679,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!154 &851694561
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851694559}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_TerrainData: {fileID: 0}
+  m_EnableTreeColliders: 1
 --- !u!1 &1297342558
 GameObject:
   m_ObjectHideFlags: 0
