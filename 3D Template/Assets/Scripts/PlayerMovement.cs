@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float crouchHeight = 1.5f;
     public float crouchSpeed = 3f;
     public float slide_Time = 0f;
+    public float Slide_cooldown = 0f;
 
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0;
@@ -67,25 +68,41 @@ public class PlayerMovement : MonoBehaviour
         if (IsSlideing == false && crouched == false && characterController.isGrounded)
         {
             AdjustCollider(defaultHeight);
+            characterController.center = new Vector3(0, 0, 0);
             walkSpeed = 6f;
             runSpeed = 12f;
-            canslide = true;
+            if (Slide_cooldown == 0)
+            {
+                canslide = true;
+            }
+            
         }
-        else if (Input.GetKey(KeyCode.C) && !(Input.GetKey(KeyCode.LeftShift)) && canMove && characterController.isGrounded)
+        if (Input.GetKey(KeyCode.C) && !(Input.GetKey(KeyCode.LeftShift)) && canMove && characterController.isGrounded)
         {
             AdjustCollider(crouchHeight);
+            characterController.center = new Vector3(0, 0.2f, 0);
             walkSpeed = crouchSpeed;
             runSpeed = crouchSpeed;
             crouched = true;
-            Debug.Log("Is Crouching");
 
+        }
+        if (Slide_cooldown > 0)
+        {
+            Slide_cooldown -= Time.deltaTime;
+            if(Slide_cooldown < 1)
+            {
+                Slide_cooldown = 0;
+                canslide = true;
+            }
         }
         if (slide_Time > 0)
         {
+            AdjustCollider(crouchHeight);
             slide_Time -= Time.deltaTime;
             if (!(Input.GetKey(KeyCode.C)))
             {
                 slide_Time = 0;
+                Slide_cooldown = 3f;
             }
         }
         else if (!(Input.GetKey(KeyCode.C)))
@@ -95,11 +112,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (IsSlideing)
         {
+            AdjustCollider(crouchHeight);
             moveDirection *= Mathf.Lerp(1.25f, 0, (2 - slide_Time) / 2);
         }
         if (!(Input.GetKey(KeyCode.LeftShift)))
         {
-            canslide = true;
+            if (Slide_cooldown == 0)
+            {
+                canslide = true;
+            }
             IsSlideing = false;
         }
 
@@ -126,17 +147,18 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.C) && canMove && canslide == true && characterController.isGrounded && !crouched == true)
         {
             AdjustCollider(crouchHeight);
+            characterController.center = new Vector3(0, 0.2f, 0);
             Debug.Log("Is slideing");
             IsSlideing = true;
             canslide = false;
-
             slide_Time = 2f;
         }
     }
 
     private void AdjustCollider(float newHeight)
     {
+        Debug.Log(newHeight);
         characterController.height = newHeight;
-        characterController.center = new Vector3(0, newHeight / 12, 0);
+        
     }
 }
