@@ -129,9 +129,6 @@ public class PlayerMovement : MonoBehaviour
             crouched = false;
         }
 
-       
-
-
         characterController.Move(moveDirection * Time.deltaTime);
 
         if (canMove)
