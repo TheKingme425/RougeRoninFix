@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float crouchSpeed = 3f;
     public float slide_Time = 0f;
     public float Slide_cooldown = 0f;
+    public float WallRunningSpeed;
 
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0;
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     public bool canslide = true;
     private bool canMove = true;
     private bool crouched = false;
+    public bool WallRunning;
+    public bool IsWallRunning;
 
     void Start()
     {
@@ -63,6 +66,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             moveDirection.y -= gravity * Time.deltaTime;
+        }
+
+        if (WallRunning)
+        {
+            moveDirection.y = WallRunningSpeed;
         }
 
         if (IsSlideing == false && crouched == false && characterController.isGrounded)
