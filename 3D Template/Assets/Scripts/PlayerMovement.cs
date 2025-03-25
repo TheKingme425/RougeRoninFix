@@ -101,8 +101,13 @@ public class PlayerMovement : MonoBehaviour
             slide_Time -= Time.deltaTime;
             if (!(Input.GetKey(KeyCode.C)))
             {
+               
+                if (slide_Time <= 1.5f)
+                {
+                    Slide_cooldown = 3f;
+                }
                 slide_Time = 0;
-                Slide_cooldown = 3f;
+
             }
         }
         else if (!(Input.GetKey(KeyCode.C)))
@@ -113,7 +118,8 @@ public class PlayerMovement : MonoBehaviour
         if (IsSlideing)
         {
             AdjustCollider(crouchHeight);
-            moveDirection *= Mathf.Lerp(1.25f, 0, (2 - slide_Time) / 2);
+            moveDirection.x *= Mathf.Lerp(1.25f, 0, (2 - slide_Time) / 2);
+            moveDirection.z *= Mathf.Lerp(1.25f, 0, (2 - slide_Time) / 2);
         }
         if (!(Input.GetKey(KeyCode.LeftShift)))
         {
