@@ -96,7 +96,8 @@ public class WallRunning : MonoBehaviour
     }
     private void StopwallRun()
     {
-        
+        rb.isKinematic = true;
+        rb.linearVelocity = Vector3.zero;
         pm.WallRunning = false;
         pm.IsWallRunning = false;
     }
